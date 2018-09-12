@@ -7,11 +7,9 @@ body, html {
 .hero-image {
     /* using "liner-gradient" to add a darken background effect to the image.
     This will make the text easier to read */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.7),
     url("chillies.jpg");
-
-    height: 50%;
-
+    height: 70%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
