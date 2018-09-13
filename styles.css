@@ -24,3 +24,8 @@ body, html {
     transform: translate(-50%, -50%);
     color: white;
 }
+
+.about-mealbot {
+    text-align: center;
+    position: absolute;
+}
