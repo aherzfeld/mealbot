@@ -49,15 +49,21 @@ body, html {
     font-style: italic;
 }
 
-.container-addmeal {
+.container-2 {
     text-align: center;
     height: 70%;
     width: 70%;
     margin: auto;
 }
 
-.container-addmeal h1{
+.container-2 h1 {
     margin-top: 100px;
+}
+
+.container-2 ul {
+    text-align: left;
+    /*removes bullet-points*/
+    list-style: none;
 }
 
 .center {
