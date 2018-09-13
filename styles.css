@@ -31,19 +31,19 @@ body, html {
     font-size: 100px;
 }
 
-.container {
+.container-1 {
     text-align: center;
-    width: 60%;
+    width: 70%;
     margin: auto;
-    padding-top: 60px;
+    padding-top: 30px;
     padding-bottom: 60px;
 }
 
-.container h2 {
+.container-1 h2 {
     margin: 30px;
 }
 
-.container h4 {
+.container-1 h4 {
     margin: 30px;
     font-style: italic;
 }
