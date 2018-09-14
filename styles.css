@@ -50,7 +50,6 @@ body, html {
 }
 
 .container-2 {
-    text-align: center;
     width: 70%;
     margin: auto;
 }
@@ -67,18 +66,6 @@ body, html {
 
 .container-2 h1 {
     margin-top: 100px;
-}
-
-.container-2 ul {
-    margin-top: 60px;
-    text-align: left;
-    /*removes bullet-points*/
-    list-style: none;
-}
-
-.container-2 li {
-    margin: 20px;
-    padding: 20px;
 }
 
 .container-img {
@@ -102,6 +89,13 @@ body, html {
     overflow: auto;
 }
 
+.container-meal a {
+    /*why wont this work?!*/
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
 .center {
     margin: auto;
 }
@@ -110,9 +104,28 @@ body, html {
     float: right;
 }
 
+.form1 {
+    padding: 20px;
+}
 
+.form1 .form-group {
+    padding-bottom: 15px;
+}
 
+.form1 label {
+/*this will break labels and inputs to separate lines*/
+    display: block;
+}
 
+.form1 input {
+    padding: 8px;
+    width: 100%
+}
+
+.button:hover {
+    background: #343a40;
+    color: white;
+}
 
 
 
