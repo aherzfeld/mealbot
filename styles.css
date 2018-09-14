@@ -51,7 +51,6 @@ body, html {
 
 .container-2 {
     text-align: center;
-    height: 70%;
     width: 70%;
     margin: auto;
 }
@@ -82,10 +81,34 @@ body, html {
     padding: 20px;
 }
 
+.container-img {
+    display: block;
+    width: 250px;
+    height: 250px;
+    /*keeps image from overflowing div*/
+    overflow: hidden;
+}
+
+.container-img img {
+    max-width: 100%
+
+}
+
+.container-meal {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /*makes sure parent div is as big as child div*/
+    overflow: auto;
+}
+
 .center {
     margin: auto;
 }
 
+.right {
+    float: right;
+}
 
 
 
