@@ -1,45 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Meal Bot</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--Bootstrap-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-        <!--My css-->
-        <link rel="stylesheet" type="text/css" href="styles.css">
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-            <a class="navbar-brand" href="index.html">MealBot</a>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="meals.html">Meals</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="addmeal.html">Add Meal</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="mealplanner.html">Plan Meals</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="hero-image">
-            <div class="hero-text">
-                <h1 id="hero-h1">MealBot</h1>
-                <p>Automate your meals</p>
-                <button class="button">Get started</button>
-            </div>
-        </div>
-        <div class="container-1">
-            <h2>About MealBot</h2>
-            <p>After moving to Sydney, Australia my fiance and I started cooking nearly every night. We've been trying new recipes with fresh ingredients - it's been great.</p>
-            <p>But, during one trip to the grocery store, it dawned on me how much time out of our days we spend finding recipes, planning meals and searching for the right ingredients. In choosing what to cook, we would default to our usual go-to's because it was easy.</p>
-            <h4>There had to be a better way</h4>
-            <p>That's when I came up with the idea for MealBot. What if I could build an app that would keep track of our recipes, select different recipes for us to cook each week, and even generate a shopping list! That's the goal of MealBot. Enjoy!</p>
-        </div>
-    </body>
-</html>
+{% extends "layout.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block content}
+       
+  <div class="hero-image">
+      <div class="hero-text">
+          <h1 id="hero-h1">MealBot</h1>
+          <p>Automate your meals</p>
+          <button class="button">Get started</button>
+      </div>
+  </div>
+  <div class="container-1">
+      <h2>About MealBot</h2>
+      <p>After moving to Sydney, Australia my fiance and I started cooking nearly every night. We've been trying new recipes with fresh ingredients - it's been great.</p>
+      <p>But, during one trip to the grocery store, it dawned on me how much time out of our days we spend finding recipes, planning meals and searching for the right ingredients. In choosing what to cook, we would default to our usual go-to's because it was easy.</p>
+      <h4>There had to be a better way</h4>
+      <p>That's when I came up with the idea for MealBot. What if I could build an app that would keep track of our recipes, select different recipes for us to cook each week, and even generate a shopping list! That's the goal of MealBot. Enjoy!</p>
+  </div>
+{% endblock %}
