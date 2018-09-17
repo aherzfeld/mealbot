@@ -1,0 +1,7 @@
+#environments
+
+venv/
+
+#flask
+#this will prevent private keys from the repo
+instance/
