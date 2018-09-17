@@ -10,7 +10,7 @@ body, html {
   /*https://www.w3schools.com/howto/howto_css_hero_image.asp*/
   /* using "liner-gradient" to add a darken background effect to the image.
   This will make the text easier to read */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.7)), url("chillies.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.7)), url("images/chillies.jpg");
   height: 70%;
   background-position: center;
   background-repeat: no-repeat;
