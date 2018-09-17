@@ -1,7 +1,8 @@
-from flask import Flask
+from mealbot_app import app
 from flask import render_template
 
 
-app = Flask('mealbot_app')
-app.config.from_object('config')
-
+@app.route("/")
+def index():
+    #return "hello, world"
+    return render_template("index.html")
