@@ -1,6 +1,8 @@
 from mealbot_app import app
 from flask import render_template
+# import our spoonacular API wrapper package
 import spoonacular as sp
+# Create our spoonacular API class
 sp_api = sp.API(app.config["SP_API_KEY"])
 
 
