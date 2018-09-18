@@ -1,5 +1,7 @@
 from mealbot_app import app
 from flask import render_template
+import spoonacular as sp
+sp_api = sp.API(app.config["SP_API_KEY"])
 
 
 @app.route("/")
