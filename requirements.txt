@@ -7,6 +7,7 @@ idna==2.7
 itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==1.0
+psycopg2==2.7.5
 requests==2.19.1
 spoonacular==2.0.1
 SQLAlchemy==1.2.11
