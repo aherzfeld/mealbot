@@ -17,20 +17,39 @@
 
   <body>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-      <a class="navbar-brand" href="/">MealBot</a>
+      <a class="navbar-brand" href="{{ url_for('index') }}">MealBot</a>
       <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" href="meals">Meals</a>
+            <a class="nav-link" href="{{ url_for('meals') }}">Meals</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="addmeal">Add Meal</a>
+            <a class="nav-link" href="{{ url_for('addmeal') }}">Add Meal</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="mealplanner">Plan Meals</a>
+            <a class="nav-link" href="{{ url_for('mealplanner') }}">Plan Meals</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
         </li>
       </ul>
     </nav>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
 
     {% block content %}{% endblock %}
   </body>
 </html>
+
+
+
+
+
+
+
