@@ -1,55 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    {% block head %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <!--My css-->
-    <link rel="stylesheet" type="text/css" href="static/styles.css">
-    <title>{% block title %}{% endblock %}</title>
-    {% endblock %}
-  </head>
+{% extends "bootstrap/base.html" %}
 
-  <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-      <a class="navbar-brand" href="{{ url_for('index') }}">MealBot</a>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('meals') }}">Meals</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('addmeal') }}">Add Meal</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('mealplanner') }}">Plan Meals</a>
-        </li>
-        <li class="nav-item">
+{% block html_attribs %} lang="en"{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
+{% endblock %}
+
+{% block title %}
+  {% if title %}
+    {{ title }} - MealBot{% else %}Welcome to MealBot
+  {% endif %}
+{% endblock %}
+
+{% block navbar %}
+  <nav class="navbar navbar-inverse"> 
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>        
+        <a class="navbar-brand" href="{{ url_for('index') }}">MealBot</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('meals') }}">Meals</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('addmeal') }}">Add Meal</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('mealplanner') }}">Plan Meals</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">    
           {% if current_user.is_anonymous %}
-          <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+          <li><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
           {% else %}
-          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+          <li><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
           {% endif %}
-        </li>
-      </ul>
-    </nav>
+        </ul>
+      </div> 
+    </div>  
+  </nav>
+{% endblock %}
+
+{% block content %}
+  
+  <div class="container">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <ul>
       {% for message in messages %}
-      <li>{{ message }}</li>
+      <div class="alert alert-info" role="alert">{{ message }}</div>
       {% endfor %}
-    </ul>
     {% endif %}
     {% endwith %}
+  
+    {# application content needs to be provided in the app_context block #}
+    {% block app_content %}{% endblock %}
+  </div>
 
-    {% block content %}{% endblock %}
-  </body>
-</html>
+{% endblock %}
+
 
 
 

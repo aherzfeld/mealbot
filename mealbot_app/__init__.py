@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_bootstrap import Bootstrap
 
 
 app = Flask(__name__, instance_relative_config=True)
@@ -15,5 +16,6 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 # inform flask-login which function handles the logins to enable require login
 login.login_view = 'login'
+bootstrap = Bootstrap(app)
 
 from mealbot_app import views, models
