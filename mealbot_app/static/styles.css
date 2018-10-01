@@ -108,7 +108,7 @@ body, html {
 .right {
   float: right;
 }
-
+/* - probably can delete all this after bootstrap
 .form1 {
   padding: 20px;
 }
@@ -118,7 +118,6 @@ body, html {
 }
 
 .form1 label {
-  /*this will break labels and inputs to separate lines*/
   display: block;
 }
 
@@ -126,7 +125,7 @@ body, html {
   padding: 8px;
   width: 100%;
 }
-
+*/
 .button:hover {
   background: #343a40;
   color: white;
