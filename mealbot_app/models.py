@@ -1,7 +1,9 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from mealbot_app import db, login
+from time import time
+from mealbot_app import app, db, login
 from flask_login import UserMixin
+import jwt
 
 
 class User(UserMixin, db.Model):
@@ -15,6 +17,21 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode(
+            {'reset_password': self.id, 'exp': time() + expires_in},
+            app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        # blank return returns None (to prevent error is token fails)
+        except:
+            return
+        return User.query.get(id)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
