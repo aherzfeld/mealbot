@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
+    URL
 from mealbot_app.models import User
 
 
@@ -42,6 +43,9 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField('Request Password Reset')
 
 
+class GetRecipeForm(FlaskForm):
+    url = StringField('Recipe URL', validators=[DataRequired(), URL()])
+    submit = SubmitField('Get Recipe')
 
 
 
