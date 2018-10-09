@@ -6,3 +6,5 @@ __pycache__/
 
 #this will prevent private keys from the repo
 instance/
+
+recipes_json/

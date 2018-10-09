@@ -1,10 +1,12 @@
+import json
 from flask import render_template, flash, redirect, url_for, request
 from werkzeug.urls import url_parse
 from mealbot_app import app, db
 from mealbot_app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
-from mealbot_app.models import User
-from mealbot_app.forms import ResetPasswordRequestForm, ResetPasswordForm
+from mealbot_app.models import User, Recipe
+from mealbot_app.forms import ResetPasswordRequestForm, ResetPasswordForm, \
+    GetRecipeForm
 from mealbot_app.email import send_password_reset_email
 # import our spoonacular API wrapper package
 import spoonacular as sp
@@ -18,11 +20,46 @@ def index():
     return render_template('index.html', title='Home')
 
 
-@app.route('/addmeal')
+@app.route('/addmeal', methods=['GET', 'POST'])
 # this will redirect to /login along with query string URL arg so the user will be redirected to the page they wanted prior to login
 @login_required
 def addmeal():
-    return render_template('addmeal.html')
+    form = GetRecipeForm()
+    if form.validate_on_submit():
+        # use api method to check api call limit first
+        response = sp_api.extract_recipe_from_website(form.url.data)
+        if response is None:
+            flash("Sorry, we were unable to extract your recipe's data.")
+            return redirect(url_for('addmeal'))
+        data = response.json()
+        with open(
+                'mealbot_app/recipes_json/' + data['title'] +
+                '.json', 'w') as outfile:
+            json.dump(data, outfile, indent=2)  # not tested yet
+        ingredients = []  # create for loop to extract ingredients
+        for item in data['extendedIngredients']:
+            ingredients.append(item['originalString'])
+        steps = []
+        for item in data['analyzedInstructions'][0]['steps']:
+            steps.append(item['step'])
+        print(ingredients, steps)  # for testing
+        recipe = Recipe(added_by=current_user, title=data['title'],
+                        url=data['sourceUrl'], image_url=data['image'],
+                        rdy_in_minutes=data['readyInMinutes'],
+                        servings=data['servings'], ingredients=ingredients,
+                        steps=steps)
+        current_user.like_recipe(recipe)
+        db.session.add(recipe)
+        db.session.commit()
+        flash("You're new recipe was succesfully added!")
+        return redirect(url_for('meal'))
+    return render_template('addmeal.html', title='Add Meal', form=form)
+
+
+@app.route('/meal')
+@login_required
+def meal():
+    return render_template('meal.html')
 
 
 @app.route('/meals')
