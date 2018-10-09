@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, \
+    IntegerField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
-    URL
+    URL, NumberRange
 from mealbot_app.models import User
 
 
@@ -48,6 +49,11 @@ class GetRecipeForm(FlaskForm):
     submit = SubmitField('Get Recipe')
 
 
+class MealPlannerForm(FlaskForm):
+    num_meals = IntegerField(
+        'How many meals this week?', validators=[DataRequired(),
+                                                 NumberRange(min=1, max=7)])
+    submit = SubmitField('Plan Meals')
 
 
 

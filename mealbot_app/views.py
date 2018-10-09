@@ -6,7 +6,7 @@ from mealbot_app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
 from mealbot_app.models import User, Recipe
 from mealbot_app.forms import ResetPasswordRequestForm, ResetPasswordForm, \
-    GetRecipeForm
+    GetRecipeForm, MealPlannerForm
 from mealbot_app.email import send_password_reset_email
 # import our spoonacular API wrapper package
 import spoonacular as sp
@@ -68,10 +68,13 @@ def meals():
     return render_template('meals.html')
 
 
-@app.route('/mealplanner')
+@app.route('/mealplanner', methods=['GET', 'POST'])
 @login_required
 def mealplanner():
-    return render_template('mealplanner.html')
+    form = MealPlannerForm()
+    if form.validate_on_submit():
+        redirect(url_for('mealplanner'))  # temporary placeholder
+    return render_template('mealplanner.html', title='Meal Planner', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
