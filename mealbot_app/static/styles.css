@@ -6,6 +6,19 @@ body, html {
   background-color: #f1faee !important;
 }
 
+img {
+  max-width: 100%;
+}
+
+li {
+  margin-top: 10px;
+}
+
+.recipe-list {
+  padding-top: 25px;
+  padding-bottom: 10px;
+}
+
 .hero-image {
   /*https://www.w3schools.com/howto/howto_css_hero_image.asp*/
   /* using "liner-gradient" to add a darken background effect to the image.
@@ -31,104 +44,18 @@ body, html {
   font-size: 100px;
 }
 
-.clr {
-  /* prevents elements from overlapping floating elements*/
-  clear: both;
-  height: 56px;
-}
-
-.container-1 {
-  text-align: center;
-  width: 70%;
-  margin: auto;
-  padding-top: 30px;
-  padding-bottom: 60px;
-}
-
-.container-1 h2 {
-  margin: 30px;
-}
-
-.container-1 h4 {
-  margin: 30px;
-  font-style: italic;
-}
-
-.container-2 {
-  width: 70%;
-  height: 70%;
-  margin: auto;
-  position: relative;
-}
-
-.container-2 a {
+a {
   /*removes underline from links*/
   text-decoration: none;
   color: #000;
 }
 
-.container-2 a:hover {
+a:hover {
   color: #4d8e7b;
 }
 
-.container-2 h1 {
-  position: relative;
-  margin-top: 50px;
-  margin-bottom: 20px;
-}
-
-.container-img {
-  display: block;
-  width: 250px;
-  height: 250px;
-  /*keeps image from overflowing div*/
-  overflow: hidden;
-}
-
-.container-img img {
-  max-width: 100%;
-}
-
-.container-meal {
-  width: 100%;
-  margin-top: 40px;
-  margin-bottom: 10px;
-  /*makes sure parent div is as big as child div*/
-  overflow: auto;
-  position: relative;
-}
-
-.container-meal a {
-  /*why wont this work?!*/
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.right {
-  float: right;
-}
-/* - probably can delete all this after bootstrap
-.form1 {
-  padding: 20px;
-}
-
-.form1 .form-group {
-  padding-bottom: 15px;
-}
-
-.form1 label {
-  display: block;
-}
-
-.form1 input {
-  padding: 8px;
-  width: 100%;
-}
-*/
-.button:hover {
+button:hover {
   background: #343a40;
   color: white;
 }
 
-/*# sourceMappingURL=styles.css.map */

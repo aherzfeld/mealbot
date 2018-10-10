@@ -1,0 +1,15 @@
+<table class="table table-hover">
+  <tr>
+    <td width="280px">
+      <a href="{{ url_for('recipe', title=recipe.title) }}">
+        <img src="{{ recipe.image_url }}">
+      </a>
+    </td>
+    <td>
+      <h4>{{ recipe.title }}</h4>
+      <p>Ready in: {{ recipe.rdy_in_minutes }} minutes | Serves: {{ recipe.servings }}</p>
+      Added by: 
+      <a href="">{{ recipe.added_by.username }}</a>
+    </td>
+  </tr>
+</table>

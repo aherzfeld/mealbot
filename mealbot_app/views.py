@@ -27,6 +27,11 @@ def addmeal():
     form = GetRecipeForm()
     if form.validate_on_submit():
         # use api method to check api call limit first
+        recipe = Recipe.query.filter_by(url=form.url.data).first()
+        if recipe:
+            current_user.like_recipe(recipe)
+            db.session.commit()
+            return redirect(url_for('recipe', title=recipe.title))
         response = sp_api.extract_recipe_from_website(form.url.data)
         if response is None:
             flash("Sorry, we were unable to extract your recipe's data.")
@@ -52,20 +57,29 @@ def addmeal():
         db.session.add(recipe)
         db.session.commit()
         flash("You're new recipe was succesfully added!")
-        return redirect(url_for('meal'))
+        return redirect(url_for('recipe', title=recipe.title))
     return render_template('addmeal.html', title='Add Meal', form=form)
 
 
-@app.route('/meal')
+@app.route('/recipe/<title>')  # recipe=title
 @login_required
-def meal():
-    return render_template('meal.html')
+def recipe(title):  # maybe i should send recipe as an arg as well
+    recipe = Recipe.query.filter_by(title=title).first_or_404()
+    return render_template('recipe.html', recipe=recipe)
+
+
+@app.route('/explore')
+@login_required
+def explore():
+    recipes = Recipe.query.order_by(Recipe.id.desc()).all()
+    return render_template('explore.html', title='Explore', recipes=recipes)
 
 
 @app.route('/meals')
 @login_required
 def meals():
-    return render_template('meals.html')
+    recipes = current_user.recipes
+    return render_template('meals.html', recipes=recipes)
 
 
 @app.route('/mealplanner', methods=['GET', 'POST'])
