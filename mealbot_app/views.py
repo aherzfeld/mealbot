@@ -61,12 +61,37 @@ def addmeal():
     return render_template('addmeal.html', title='Add Meal', form=form)
 
 
-@app.route('/recipe/<title>')  # recipe=title
+@app.route('/recipe/<title>')
 @login_required
-def recipe(title):  # maybe i should send recipe as an arg as well
+def recipe(title):
     recipe = Recipe.query.filter_by(title=title).first_or_404()
     return render_template('recipe.html', recipe=recipe)
 
+
+@app.route('/like/<title>')
+@login_required
+def like_recipe(title):
+    recipe = Recipe.query.filter_by(title=title).first()
+    if recipe is None:
+        flash('Recipe {} not found.'.format(title))
+        return redirect(url_for('index'))
+    current_user.like_recipe(recipe)
+    db.session.commit()
+    flash('You have added {} to your meals!'.format(title))
+    return redirect(url_for('recipe', title=title, recipe=recipe))
+
+
+@app.route('/unlike/<title>')
+@login_required
+def unlike_recipe(title):
+    recipe = Recipe.query.filter_by(title=title).first()
+    if recipe is None:
+        flash('Recipe {} not found.'.format(title))
+        return redirect(url_for('index'))
+    current_user.unlike_recipe(recipe)
+    db.session.commit()
+    flash('You have removed {} from your meals!'.format(title))
+    return redirect(url_for('recipe', title=title, recipe=recipe))
 
 @app.route('/explore')
 @login_required

@@ -2,7 +2,13 @@
 
 {% block app_content %}
 
-<h1>{{ recipe.title }}</h1>
+<h1>{{ recipe.title }}  
+  {% if not current_user.likes_recipe(recipe) %}
+  <a href="{{ url_for('like_recipe', title=recipe.title) }}" title="Add Recipe"><span class="glyphicon glyphicon-heart-empty"></span></a>
+  {% else %}
+  <a href="{{ url_for('unlike_recipe', title=recipe.title) }}" title="Remove Recipe"><span class="glyphicon glyphicon-heart"></span></a>
+  {% endif %}
+</h1>
 <h5>Ready in: {{ recipe.rdy_in_minutes }} minutes | Serves: {{ recipe.servings }}</h5>
   <div class="row">
     <div class="col-md-6">
