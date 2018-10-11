@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request
 from werkzeug.urls import url_parse
 from mealbot_app import app, db
@@ -26,7 +27,7 @@ def index():
 def addmeal():
     form = GetRecipeForm()
     if form.validate_on_submit():
-        # use api method to check api call limit first
+        # use api method to check api call limit first (built in)
         recipe = Recipe.query.filter_by(url=form.url.data).first()
         if recipe:
             current_user.like_recipe(recipe)
@@ -40,14 +41,14 @@ def addmeal():
         with open(
                 'mealbot_app/recipes_json/' + data['title'] +
                 '.json', 'w') as outfile:
-            json.dump(data, outfile, indent=2)  # not tested yet
-        ingredients = []  # create for loop to extract ingredients
+            json.dump(data, outfile, indent=2)
+        ingredients = []
         for item in data['extendedIngredients']:
             ingredients.append(item['originalString'])
         steps = []
         for item in data['analyzedInstructions'][0]['steps']:
             steps.append(item['step'])
-        print(ingredients, steps)  # for testing
+        print(response.headers(), ingredients, steps)  # for testing
         recipe = Recipe(added_by=current_user, title=data['title'],
                         url=data['sourceUrl'], image_url=data['image'],
                         rdy_in_minutes=data['readyInMinutes'],
@@ -92,6 +93,7 @@ def unlike_recipe(title):
     db.session.commit()
     flash('You have removed {} from your meals!'.format(title))
     return redirect(url_for('recipe', title=title, recipe=recipe))
+
 
 @app.route('/explore')
 @login_required
@@ -187,6 +189,12 @@ def reset_password(token):
     return render_template('reset_password.html', form=form)
 
 
+# this flask decorator causes this function to execute before any view function
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
 
 
 

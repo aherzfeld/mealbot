@@ -17,6 +17,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(40), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     added_recipes = db.relationship(
         'Recipe', backref='added_by', lazy='dynamic')
     recipes = db.relationship(
@@ -70,7 +71,7 @@ class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     recipe_json = db.Column(db.JSON)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    title = db.Column(db.String(60))
+    title = db.Column(db.String(60), unique=True)
     url = db.Column(db.String(200), unique=True)
     image_url = db.Column(db.String(200))
     rdy_in_minutes = db.Column(db.Integer)
@@ -80,12 +81,6 @@ class Recipe(db.Model):
 
     def __repr__(self):
         return 'Added by: {}, \n{}'.format(self.added_by, self.recipe_json)
-
-
-
-
-
-
 
 
 
