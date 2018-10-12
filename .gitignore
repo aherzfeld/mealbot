@@ -1,6 +1,9 @@
 #environments
 venv/
 
+#environment variables
+.env
+
 #flask
 __pycache__/
 

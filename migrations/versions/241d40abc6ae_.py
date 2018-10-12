@@ -1,8 +1,8 @@
-"""empty message
+"""last seen, unique Recipe.title
 
-Revision ID: b1019340f43c
+Revision ID: 241d40abc6ae
 Revises: 629c02225682
-Create Date: 2018-10-11 14:59:24.949619
+Create Date: 2018-10-12 09:52:20.814609
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b1019340f43c'
+revision = '241d40abc6ae'
 down_revision = '629c02225682'
 branch_labels = None
 depends_on = None
