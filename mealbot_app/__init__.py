@@ -20,7 +20,7 @@ login.login_view = 'login'
 mail = Mail(app)
 bootstrap = Bootstrap(app)
 
-from mealbot_app import views, models, errors
+from mealbot_app import routes, models, errors
 
 if not app.debug:
     if app.config['MAIL_SERVER']:
