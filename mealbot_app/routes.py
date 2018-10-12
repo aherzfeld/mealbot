@@ -42,13 +42,28 @@ def addmeal():
                 'mealbot_app/recipes_json/' + data['title'] +
                 '.json', 'w') as outfile:
             json.dump(data, outfile, indent=2)
+        # temporarily filter out non-spoonacular recipes
+        #if data['id'] < 1:
+        #    flash("Sorry, we were unable to extract your recipe's data.")
+        #    return redirect(url_for('addmeal'))
         ingredients = []
-        for item in data['extendedIngredients']:
-            ingredients.append(item['originalString'])
+        # check if ingredients were extracted successfully
+        if data['extendedIngredients']:
+            for item in data['extendedIngredients']:
+                # confirm that item is a food in spoonacular's db
+                if item['id']:
+                    ingredients.append(item['originalString'])
         steps = []
-        for item in data['analyzedInstructions'][0]['steps']:
-            steps.append(item['step'])
-        print(response.headers(), ingredients, steps)  # for testing
+        # check if steps were extracted successfully
+        if data['analyzedInstructions']:
+            for item in data['analyzedInstructions'][0]['steps']:
+                if len(str(item['step'])) > 3:
+                    steps.append(item['step'])
+        print(ingredients, steps)  # for testing
+        # filter out incomplete recipes
+        if not ingredients or not steps:
+            flash("Sorry, we were unable to extract your recipe's data.")
+            return redirect(url_for('addmeal'))
         recipe = Recipe(added_by=current_user, title=data['title'],
                         url=data['sourceUrl'], image_url=data['image'],
                         rdy_in_minutes=data['readyInMinutes'],

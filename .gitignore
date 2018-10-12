@@ -11,3 +11,5 @@ __pycache__/
 instance/
 
 recipes_json/
+
+logs/
