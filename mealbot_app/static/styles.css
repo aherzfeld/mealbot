@@ -106,6 +106,14 @@ button:hover {
   color: #4d8e7b;
 }
 
+._meal {
+  height: 180px;
+}
+
+._meal img {
+  width: 100%;
+  height: auto;
+}
 
 
 
