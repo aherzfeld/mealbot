@@ -39,10 +39,11 @@ def addmeal():
             flash("Sorry, we were unable to extract your recipe's data.")
             return redirect(url_for('addmeal'))
         data = response.json()
-        with open(
-                'mealbot_app/recipes_json/' + data['title'] +
-                '.json', 'w') as outfile:
-            json.dump(data, outfile, indent=2)
+        # shut down for heroku deployment
+        #with open(
+        #        'mealbot_app/recipes_json/' + data['title'] +
+        #        '.json', 'w') as outfile:
+        #    json.dump(data, outfile, indent=2)
         # temporarily filter out non-spoonacular recipes
         #if data['id'] < 1:
         #    flash("Sorry, we were unable to extract your recipe's data.")
