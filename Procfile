@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn mealbot/__init__.py:mealbot_app
+web: flask db upgrade; gunicorn __init__.py:mealbot_app
