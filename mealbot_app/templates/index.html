@@ -6,7 +6,7 @@
     <div class="hero-text">
       <h1 id="hero-h1">MealBot</h1>
       <p>Automate your meals</p>
-      <button>
+      <button class="btn btn-default get-started">
         {% if current_user.is_anonymous %}
         <a href="{{ url_for('register') }}">Get started</a>
         {% else %}

@@ -19,6 +19,24 @@ li {
   padding-top: 23px;
 }
 
+.get-started a {
+  color: white;
+}
+
+.get-started a:hover {
+  color: white;
+}
+
+.get-started {
+  background: #365d84;
+  color: white;
+  border: none;
+}
+
+.get-started:hover {
+  background: #4d8e7b;
+}
+
 .recipe-list {
   padding-top: 25px;
   padding-bottom: 10px;
