@@ -123,6 +123,9 @@ def explore():
 @login_required
 def meals():
     recipes = current_user.recipes
+    if len(recipes.all()) < 1:
+            flash("You don't have any meals yet!")
+            return render_template('meals.html')
     return render_template('meals.html', recipes=recipes)
 
 

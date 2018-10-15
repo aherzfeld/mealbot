@@ -5,6 +5,10 @@
 <h1>Your Meals</h1>
 <h3>Hi, {{ current_user.username }}!</h3>
   <hr>
+  {% if not recipes %}
+    <p>We see that you haven't added any meals yet.</p>
+    <p>"Like" a meal added by the community in <a href="{{ url_for('explore') }}">explore</a>, or add your own via <a href="{{ url_for('addmeal') }}">add meal!</a></p>
+  {% endif %}
   {% for recipe in recipes %}
     {% include '_meal.html' %}
   {% endfor %}

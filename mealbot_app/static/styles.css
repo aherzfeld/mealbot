@@ -63,11 +63,11 @@ li {
 a {
   /*removes underline from links*/
   text-decoration: none;
-  color: #000;
 }
 
 a:hover {
   color: #4d8e7b;
+  text-decoration: none;
 }
 
 button:hover {
