@@ -131,9 +131,11 @@ def mealplanner():
     form = MealPlannerForm()
     if form.validate_on_submit():
         # query users recipes and select n randomly
-        recipes = Recipe.query.order_by(
+        recipes = current_user.recipes.order_by(
             func.random()).limit(form.num_meals.data)
-        # might need error catcher here if user has no recipes
+        if len(recipes.all()) < 1:
+            flash("You don't have any meals yet!")
+            return redirect(url_for('mealplanner'))
         return render_template('mealplanner.html', title='Meal Planner',
                                form=form, recipes=recipes)
     return render_template('mealplanner.html', title='Meal Planner', form=form)
