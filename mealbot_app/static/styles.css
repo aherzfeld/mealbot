@@ -53,6 +53,11 @@ li {
 .center {
   margin: auto;
   width: 70%;
+  text-align: center;
+}
+
+.about {
+  margin-top: 15px;
 }
 
 a {

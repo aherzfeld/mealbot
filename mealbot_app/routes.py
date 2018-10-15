@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from sqlalchemy import func  # for mealplanner
 from flask import render_template, flash, redirect, url_for, request
 from werkzeug.urls import url_parse
 from mealbot_app import app, db
@@ -129,7 +130,12 @@ def meals():
 def mealplanner():
     form = MealPlannerForm()
     if form.validate_on_submit():
-        redirect(url_for('mealplanner'))  # temporary placeholder
+        # query users recipes and select n randomly
+        recipes = Recipe.query.order_by(
+            func.random()).limit(form.num_meals.data)
+        # might need error catcher here if user has no recipes
+        return render_template('mealplanner.html', title='Meal Planner',
+                               form=form, recipes=recipes)
     return render_template('mealplanner.html', title='Meal Planner', form=form)
 
 

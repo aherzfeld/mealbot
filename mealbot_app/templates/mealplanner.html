@@ -9,5 +9,11 @@
       {{ wtf.quick_form(form) }}
     </div>
   </div>
+  {% if recipes %}
+    <br>
+    {% for recipe in recipes %}
+    {% include '_meal.html' %}
+    {% endfor %}
+  {% endif %}
 
 {% endblock %}
