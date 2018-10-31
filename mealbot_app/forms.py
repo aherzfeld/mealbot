@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, \
-    IntegerField
+    IntegerField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, \
-    URL, NumberRange
+    URL, NumberRange, Length
 from mealbot_app.models import User
 
 
@@ -30,6 +30,12 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('An account already exists with this email.')
+
+
+class EditProfileForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
+    submit = SubmitField('Submit')
 
 
 class ResetPasswordRequestForm(FlaskForm):

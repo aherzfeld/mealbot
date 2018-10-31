@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block app_content %}
+
+<table>
+  <tr valign="top">
+    <td><img src="{{ user.avatar(216) }}"></td>
+    <td>
+      <h1>User: {{ user.username }}</h1>
+      {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+      {% if user.user_created %}
+        <p>Member since: {{ user.user_created }}</p>
+      {% else %}
+        <p>Member since: The dawn of time</p>
+      {% endif %}
+      {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
+      <p>Recipes: </p>
+      {% if user == current_user %}
+      <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+      {% endif %}
+    </td>
+  </tr>
+</table>
+
+{% if not recipes %}
+  <hr>
+  <p>It appears that {{ user.username }} hasn't added any meals yet.</p>
+{% endif %}
+
+{% for recipe in recipes %}
+  {% include '_meal.html' %}
+{% endfor %}
+ 
+{% endblock %}

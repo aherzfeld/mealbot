@@ -8,7 +8,7 @@ from mealbot_app.forms import LoginForm, RegistrationForm
 from flask_login import current_user, login_user, logout_user, login_required
 from mealbot_app.models import User, Recipe
 from mealbot_app.forms import ResetPasswordRequestForm, ResetPasswordForm, \
-    GetRecipeForm, MealPlannerForm
+    GetRecipeForm, MealPlannerForm, EditProfileForm
 from mealbot_app.email import send_password_reset_email
 # import our spoonacular API wrapper package
 import spoonacular as sp
@@ -145,6 +145,17 @@ def mealplanner():
     return render_template('mealplanner.html', title='Meal Planner', form=form)
 
 
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    recipes = user.recipes
+    if len(user.recipes.all()) < 1:
+        return render_template('user.html', title="Profile", user=user)
+    return render_template('user.html', title="Profile", user=user,
+                           recipes=recipes)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     # check if user is already logged in
@@ -176,13 +187,31 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        user = User(username=form.username.data, email=form.email.data,
+                    user_created=datetime.utcnow())
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are registered!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.about_me = form.about_me.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('edit_profile'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.about_me.data = current_user.about_me
+    return render_template('edit_profile.html', title='Edit Profile',
+                           form=form)
 
 
 @app.route('/reset_password_request', methods=['GET', 'POST'])

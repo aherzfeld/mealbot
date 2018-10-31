@@ -1,6 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from time import time
+from hashlib import md5
 from mealbot_app import app, db, login
 from flask_login import UserMixin
 import jwt
@@ -17,12 +18,19 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(40), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    user_created = db.Column(db.DateTime)
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    about_me = db.Column(db.String(140))
     added_recipes = db.relationship(
         'Recipe', backref='added_by', lazy='dynamic')
     recipes = db.relationship(
         'Recipe', secondary=liked_recipes,
         backref=db.backref('likers', lazy='dynamic'), lazy='dynamic')
+
+    def avatar(self, size):
+        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=robohash&s={}'.format(
+            digest, size)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
