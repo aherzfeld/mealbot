@@ -150,10 +150,11 @@ def mealplanner():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     recipes = user.recipes
+    recipes_added = len(user.added_recipes.all())
     if len(user.recipes.all()) < 1:
         return render_template('user.html', title="Profile", user=user)
     return render_template('user.html', title="Profile", user=user,
-                           recipes=recipes)
+                           recipes=recipes, recipes_added=recipes_added)
 
 
 @app.route('/login', methods=['GET', 'POST'])

@@ -7,6 +7,11 @@
 <link rel="stylesheet" href="{{ url_for('.static', filename='styles.css') }}">
 {% endblock %}
 
+{% block scripts %}
+  {{ super() }}
+  {{ moment.include_moment() }}
+{% endblock %}
+
 {% block title %}
   {% if title %}
     {{ title }} - MealBot{% else %}Welcome to MealBot
