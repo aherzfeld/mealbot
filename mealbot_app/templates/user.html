@@ -14,7 +14,7 @@
         <p>Member since: The dawn of time</p>
       {% endif %}
       {% if user.last_seen %}
-        <p>Last seen on: {{ moment(user.last_seen).fromNow() }}</p>
+        <p>Last seen: {{ moment(user.last_seen).fromNow() }}</p>
       {% endif %}
       <p>Recipes added: {{ recipes_added }}</p>
       {% if user == current_user %}
