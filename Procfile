@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn --bind 0.0.0.0:$PORT mealbot:app
+web: flask db upgrade; gunicorn mealbot:app
