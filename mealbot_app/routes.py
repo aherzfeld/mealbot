@@ -11,9 +11,11 @@ from mealbot_app.forms import ResetPasswordRequestForm, ResetPasswordForm, \
     GetRecipeForm, MealPlannerForm, EditProfileForm
 from mealbot_app.email import send_password_reset_email
 # import our spoonacular API wrapper package
-import spoonacular as sp
+#import spoonacular as sp
 # Create our spoonacular API class
-sp_api = sp.API(app.config["SP_API_KEY"])
+#sp_api = sp.API(app.config["SP_API_KEY"])
+from mealbot_app.helpers import SpoonAPI
+sp_api = SpoonAPI(app.config["SP_API_KEY"])
 
 
 @app.route('/')

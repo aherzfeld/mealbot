@@ -12,7 +12,6 @@ Flask-Migrate==2.2.1
 Flask-Moment==0.6.0
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
-gunicorn==19.9.0
 idna==2.7
 itsdangerous==0.24
 Jinja2==2.10
@@ -25,7 +24,7 @@ python-dotenv==0.9.1
 python-editor==1.0.3
 requests==2.19.1
 six==1.11.0
-spoonacular==2.0.1
+spoonacular==2.2.1
 SQLAlchemy==1.2.11
 urllib3==1.23
 visitor==0.1.3
